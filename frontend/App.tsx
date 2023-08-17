@@ -5,9 +5,11 @@ import {
   JosefinSans_700Bold,
   JosefinSans_400Regular,
 } from "@expo-google-fonts/josefin-sans";
-import tw from "twrnc";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import HomeScreen from "./screens/HomeScreen";
+
+// import { Header } from "react-native/Libraries/NewAppScreen";
 
 export default function App() {
   let [fontsLoaded, fontError] = useFonts({
@@ -21,9 +23,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <View>
-        <Text>my todo app</Text>
-      </View>
+      <HomeScreen />
     </Provider>
   );
 }
