@@ -22,8 +22,8 @@ module.exports = {
     },
     colors:{
       'bright-blue':'#3a7bfd',
-      'gradient-blue':'#57ddff',
-      'gradient-purple':'#c058f3',
+      'blue':'#57ddff',
+      'purple':'#c058f3',
       'white':'#ffffff',
       'gray':'#fafafa',
       'very-light-grayish-blue':'#e4e5f1',
