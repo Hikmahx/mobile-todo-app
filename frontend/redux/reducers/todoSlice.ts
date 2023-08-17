@@ -1,14 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  darkMode: false,
+  modeToggle: false,
 };
 
 const TodoSlice = createSlice({
   name: "todo",
   initialState,
-  reducers: {},
+  reducers: {
+    setDarkMode: (state, action) => {
+      state.darkMode = action.payload;
+    },
+  },
 });
 
-export const {} = TodoSlice.actions;
+export const { setDarkMode } = TodoSlice.actions;
 
 export default TodoSlice.reducer;
