@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import TodoItem from '../components/TodoItem';
+import Todos from '../components/Todos';
 
 const HomeScreen = () => {
   const { darkMode } = useSelector((state: RootState) => state.todo);
@@ -18,6 +19,7 @@ const HomeScreen = () => {
     <Header />
     <Form />
     {/* <TodoItem */}
+    <Todos />
   </View>
   )
 }

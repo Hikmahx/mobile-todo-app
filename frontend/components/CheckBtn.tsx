@@ -6,7 +6,7 @@ import tw from "../lib/tailwind";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
-const CheckBtn = () => {
+const CheckBtn = (todoCompleted: any) => {
   const [completed, setCompleted] = useState(false);
   const { darkMode } = useSelector((state: RootState) => state.todo);
 
