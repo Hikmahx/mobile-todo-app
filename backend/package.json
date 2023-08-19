@@ -1,7 +1,7 @@
 {
-  "name": "ride-share",
+  "name": "mobile-todo-app",
   "version": "1.0.0",
-  "description": "ride-share api backend",
+  "description": "mobile-todo-app api backend",
   "main": "server.ts",
   "scripts": {
     "start": "node server.ts",
@@ -11,12 +11,12 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Hikmahx/ride-share.git"
+    "url": "git+https://github.com/Hikmahx/mobile-todo-app.git"
   },
   "bugs": {
-    "url": "https://github.com/Hikmahx/ride-share/issues"
+    "url": "https://github.com/Hikmahx/mobile-todo-app/issues"
   },
-  "homepage": "https://github.com/Hikmahx/ride-share#readme",
+  "homepage": "https://github.com/Hikmahx/mobile-todo-app#readme",
   "dependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/config": "^3.3.0",
