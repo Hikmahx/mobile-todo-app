@@ -1,6 +1,5 @@
 import { Schema, model, Document } from "mongoose";
 
-
 const todoSchema = new Schema(
   {
     todo: { type: String, required: true },
@@ -9,6 +8,6 @@ const todoSchema = new Schema(
   { timestamps: true }
 );
 
-const Todo = model("User", todoSchema);
+const Todo = model("Todo", todoSchema);
 
 export default Todo;
