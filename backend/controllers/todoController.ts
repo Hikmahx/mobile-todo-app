@@ -10,10 +10,11 @@ export const createTodo = async (req: Request, res: Response) => {
   }
 
   try {
-    const { todo, completed } = req.body;
+    const { todo, completed, tags } = req.body;
     const newTodo = new Todo({
       todo,
       completed,
+      tags
     });
 
     await newTodo.save();
