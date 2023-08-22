@@ -1,5 +1,6 @@
 import {
   View,
+  ScrollView,
   Text,
   TextInput,
   KeyboardAvoidingView,
@@ -12,6 +13,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import Check from "../assets/svg/icon-check.svg";
 import CheckBtn from "./CheckBtn";
+import TagsInput from "./TagsInput";
 
 const Form = () => {
   const { darkMode } = useSelector((state: RootState) => state.todo);
@@ -27,6 +29,10 @@ const Form = () => {
 
   return (
     <View style={tw`mx-6`}>
+    <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "position" : undefined}
+        // style={tw`flex-1 mt-16`}
+      >
       <View
         style={tw`-mt-6 relative px-4 w-full h-12 transition-colors rounded flex items-center justify-center shadow-lg ${
           !darkMode ? "bg-white" : "bg-very-dark-desaturated-blue"
@@ -49,6 +55,8 @@ const Form = () => {
         </View>
         {/* </View> */}
       </View>
+      <TagsInput />
+      </KeyboardAvoidingView>
     </View>
   );
 };
