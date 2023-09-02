@@ -47,6 +47,10 @@ const RegisterScreen = () => {
         behavior={Platform.OS === "ios" ? "position" : undefined}
         style={tw`flex-1 mt-16`}
       >
+        <View
+          style={tw`relative top-20 bg-white flex-1 items-center justify-center px-6 max-w-lg w-full mx-auto flex-1 h-full`}
+        >
+                    <Text style={tw`text-xl text-center mb-6`}>Create an account</Text>
           <View style={tw`w-full mb-4`}>
             <Controller
               control={control}
@@ -293,6 +297,7 @@ const RegisterScreen = () => {
             {/* <Link href="/login" style={tw`text-red-500 font-bold`}>
               Sign In
             </Link> */}
+          </View>
           </View>
       </KeyboardAvoidingView>
     </ScrollView>
