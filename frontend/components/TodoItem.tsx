@@ -9,11 +9,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CheckBtn from "./CheckBtn";
 
-const TodoItem = () => {
+const TodoItem = ({ item }: { item: any }) => {
   const { darkMode } = useSelector((state: RootState) => state.todo);
-  const Item = ({ item }: { item: any }) => {
+  // const Item = ({ item }: { item: any }) => {
     return (
-      <View>
+      <View style={tw`w-full max-w-lg mx-auto`}>
         <View
           style={tw`todo-item relative flex flex-row items-center h-auto py-4 border-b ${
             !darkMode
@@ -70,19 +70,19 @@ const TodoItem = () => {
         </View>
       </View>
     );
-  };
+  // };
 
-  return (
-    <View style={tw`w-full max-w-lg mx-auto`}>
-      <View style={tw``}>
-        {todos.map((todo) => (
-          <>
-            <Item key={todo.id} item={todo} />
-          </>
-        ))}
-      </View>
-    </View>
-  );
+  // return (
+  //   <View style={tw`w-full max-w-lg mx-auto`}>
+  //     <View style={tw``}>
+  //       {todos.map((todo) => (
+  //         <>
+  //           <Item key={todo.id} item={todo} />
+  //         </>
+  //       ))}
+  //     </View>
+  //   </View>
+  // );
 };
 
 export default TodoItem;
