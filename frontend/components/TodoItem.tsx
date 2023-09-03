@@ -15,7 +15,7 @@ const TodoItem = ({ item }: { item: any }) => {
     return (
       <View style={tw`w-full max-w-lg mx-auto`}>
         <View
-          style={tw`todo-item relative flex flex-row items-center h-auto py-4 border-b ${
+          style={tw`relative flex flex-row items-center h-auto py-4 border-b ${
             !darkMode
               ? "border-light-grayish-blue"
               : "border-dark-grayish-blue-dark"
@@ -48,7 +48,7 @@ const TodoItem = ({ item }: { item: any }) => {
           </View> */}
           <Text
             style={[
-              tw`"todo-task relative px-3 sm:max-w-sm first-letter:capitalize flex-wrap flex-1 flex"
+              tw`relative px-3 sm:max-w-sm first-letter:capitalize flex-wrap flex-1 flex
             ${
               item.completed
                 ? "line-through text-light-grayish-blue"
