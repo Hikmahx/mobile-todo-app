@@ -15,7 +15,7 @@ import tw from "../lib/tailwind";
 // import Logo from "../assets/images/logo.svg";
 import { Svg, Path, G, Mask } from "react-native-svg";
 // import { Link, useRouter } from "expo-router";
-
+import BgImage from "../assets/bg.png";
 
 type FormData = {
   firstName: string;
@@ -42,15 +42,19 @@ const RegisterScreen = () => {
   };
 
   return (
-    <ScrollView style={[tw`bg-`]}>
+    <ScrollView style={[tw`h-full flex-1`]}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "position" : undefined}
-        style={tw`flex-1 mt-16`}
+        style={tw``}
       >
+        <View style={tw`w-full relative`}>
+          <Image source={BgImage} style={tw`w-full relative`} />
+        </View>
+
         <View
           style={tw`relative top-20 bg-white flex-1 items-center justify-center px-6 max-w-lg w-full mx-auto flex-1 h-full`}
         >
-                    <Text style={tw`text-xl text-center mb-6`}>Create an account</Text>
+          <Text style={tw`text-xl text-center mb-6`}>Create an account</Text>
           <View style={tw`w-full mb-4`}>
             <Controller
               control={control}
@@ -298,11 +302,11 @@ const RegisterScreen = () => {
               Sign In
             </Link> */}
           </View>
-          </View>
+        </View>
       </KeyboardAvoidingView>
     </ScrollView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   input: {
@@ -313,4 +317,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen
+export default RegisterScreen;

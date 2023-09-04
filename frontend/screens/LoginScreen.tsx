@@ -15,7 +15,7 @@ import tw from "../lib/tailwind";
 // import Logo from "../assets/images/logo.svg";
 import { Svg, Path, G, Mask } from "react-native-svg";
 // import { Link, useRouter } from "expo-router";
-
+import BgImage from '../assets/bg.png'
 
 type FormData = {
   firstName: string;
@@ -46,8 +46,11 @@ const LoginScreen = () => {
     <ScrollView style={[tw`bg-`]}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "position" : undefined}
-        style={tw`flex-1 mt-16`}
+        style={tw`flex-1`}
       >
+        <View style={tw`w-full relative`}>
+        <Image source={BgImage} style={tw`w-full relative`}/>
+        </View>
         <View
           style={tw`relative top-20 bg-white flex-1 items-center justify-center px-6 max-w-lg w-full mx-auto flex-1 h-full`}
         >
