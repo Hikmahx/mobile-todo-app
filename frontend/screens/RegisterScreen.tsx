@@ -47,14 +47,20 @@ const RegisterScreen = () => {
         behavior={Platform.OS === "ios" ? "position" : undefined}
         style={tw``}
       >
-        <View style={tw`w-full relative`}>
-          <Image source={BgImage} style={tw`w-full relative`} />
+        <View style={tw`h-fit flex`}>
+          <Image source={BgImage} style={tw``} />
         </View>
-
         <View
-          style={tw`relative top-20 bg-white flex-1 items-center justify-center px-6 max-w-lg w-full mx-auto flex-1 h-full`}
+          style={tw`relative my-20 bg-white flex-1 items-center justify-center px-6 max-w-lg w-full mx-auto flex-1 h-full`}
         >
-          <Text style={tw`text-xl text-center mb-6`}>Create an account</Text>
+          <Text
+            style={[
+              tw`text-xl text-center mb-6`,
+              { fontFamily: "JosefinSans_700Bold" },
+            ]}
+          >
+            Create an account
+          </Text>
           <View style={tw`w-full mb-4`}>
             <Controller
               control={control}
@@ -72,6 +78,7 @@ const RegisterScreen = () => {
                       tw`bg-stone-50 px-4 py-2 text-base rounded-md w-full placeholder:text-red-400 focus:outline-none focus:border-blue focus:bg-white`,
                       styles.input,
                       styles.inputFocus,
+                      { fontFamily: "JosefinSans_400Regular" },
                     ]}
                     placeholder="First Name"
                     onBlur={onBlur}
@@ -108,6 +115,7 @@ const RegisterScreen = () => {
                       tw`bg-stone-50 px-4 py-2 text-base rounded-md w-full placeholder:text-red-400 focus:outline-none focus:border-blue focus:bg-white`,
                       styles.input,
                       styles.inputFocus,
+                      { fontFamily: "JosefinSans_400Regular" },
                     ]}
                     placeholder="Last Name"
                     onBlur={onBlur}
@@ -144,6 +152,7 @@ const RegisterScreen = () => {
                       tw`bg-stone-50 px-4 py-2 text-base rounded-md w-full placeholder:text-red-400 focus:outline-none focus:border-blue focus:bg-white`,
                       styles.input,
                       styles.inputFocus,
+                      { fontFamily: "JosefinSans_400Regular" },
                     ]}
                     placeholder="Email"
                     keyboardType="email-address"
@@ -181,6 +190,7 @@ const RegisterScreen = () => {
                       tw`bg-stone-50 px-4 py-2 text-base rounded-md w-full placeholder:text-red-400 focus:outline-none focus:border-blue focus:bg-white`,
                       styles.input,
                       styles.inputFocus,
+                      { fontFamily: "JosefinSans_400Regular" },
                     ]}
                     placeholder="Password"
                     onBlur={onBlur}
@@ -290,15 +300,22 @@ const RegisterScreen = () => {
               accessibilityRole="button"
               accessibilityLabel="Register"
             >
-              <Text style={tw`text-white font-bold text-center text-lg`}>
+              <Text
+                style={[
+                  tw`text-white font-bold text-center text-lg`,
+                  { fontFamily: "JosefinSans_700Bold" },
+                ]}
+              >
                 Create Account
               </Text>
             </TouchableOpacity>
           </View>
 
           <View style={tw`flex-row items-start w-full mt-6`}>
-            <Text style={tw`mr-1`}>Already have an account?</Text>
-            {/* <Link href="/login" style={tw`text-red-500 font-bold`}>
+            <Text style={[tw`mr-1`, { fontFamily: "JosefinSans_400Regular" }]}>
+              Already have an account?
+            </Text>
+            {/* <Link href="/login" style={[tw`text-red-500 font-bold`, { fontFamily: "JosefinSans_400Regular" }]}>
               Sign In
             </Link> */}
           </View>

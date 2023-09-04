@@ -15,7 +15,7 @@ import tw from "../lib/tailwind";
 // import Logo from "../assets/images/logo.svg";
 import { Svg, Path, G, Mask } from "react-native-svg";
 // import { Link, useRouter } from "expo-router";
-import BgImage from '../assets/bg.png'
+import BgImage from "../assets/bg.png";
 
 type FormData = {
   firstName: string;
@@ -41,7 +41,6 @@ const LoginScreen = () => {
     // router.push("/home");
   };
 
-
   return (
     <ScrollView style={[tw`bg-`]}>
       <KeyboardAvoidingView
@@ -49,14 +48,21 @@ const LoginScreen = () => {
         style={tw`flex-1`}
       >
         <View style={tw`w-full relative`}>
-        <Image source={BgImage} style={tw`w-full relative`}/>
+          <Image source={BgImage} style={tw`w-full relative`} />
         </View>
         <View
-          style={tw`relative top-20 bg-white flex-1 items-center justify-center px-6 max-w-lg w-full mx-auto flex-1 h-full`}
+          style={tw`relative my-20 bg-white flex-1 items-center justify-center px-6 max-w-lg w-full mx-auto flex-1 h-full`}
         >
           {/* <Logor style={tw`mx-auto mb-4`} /> */}
 
-          <Text style={tw`text-xl text-center mb-6`}>Sign In</Text>
+          <Text
+            style={[
+              tw`text-xl text-center mb-6`,
+              { fontFamily: "JosefinSans_700Bold" },
+            ]}
+          >
+            Sign In
+          </Text>
           <View style={tw`w-full mb-4`}>
             <Controller
               control={control}
@@ -74,6 +80,7 @@ const LoginScreen = () => {
                       tw`bg-stone-50 px-4 py-2 text-base rounded-md w-full placeholder:text-red-400 focus:outline-none focus:border-blue focus:bg-white`,
                       styles.input,
                       styles.inputFocus,
+                      { fontFamily: "JosefinSans_400Regular" },
                     ]}
                     // caretHidden={false}
                     selectionColor={"#146BFB"}
@@ -113,6 +120,7 @@ const LoginScreen = () => {
                       tw`bg-stone-50 px-4 py-2 text-base rounded-md w-full placeholder:text-red-400 focus:outline-none focus:border-blue focus:bg-white`,
                       styles.input,
                       styles.inputFocus,
+                      { fontFamily: "JosefinSans_400Regular" },
                     ]}
                     // caretHidden={false}
                     selectionColor={"#146BFB"}
@@ -224,21 +232,24 @@ const LoginScreen = () => {
               accessibilityRole="button"
               accessibilityLabel="Register"
             >
-              <Text style={tw`text-white font-bold text-center text-lg`}>
+              <Text
+                style={[
+                  tw`text-white font-bold text-center text-lg`,
+                  { fontFamily: "JosefinSans_700Bold" },
+                ]}
+              >
                 Sign in
               </Text>
             </TouchableOpacity>
           </View>
 
           <View style={tw`flex-row items-start w-full mt-2`}>
-            <Text style={tw`mr-1`}>Don’t have an account?</Text>
+            <Text style={[tw`mr-1`, { fontFamily: "JosefinSans_400Regular" }]}>
+              Don’t have an account?
+            </Text>
             {/* <Link href="/register" style={tw`text-red-500 font-bold`}>
               Sign Up
             </Link> */}
-
-
-
-
           </View>
         </View>
       </KeyboardAvoidingView>
