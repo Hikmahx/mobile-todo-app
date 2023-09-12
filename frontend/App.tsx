@@ -8,8 +8,13 @@ import {
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import HomeScreen from "./screens/HomeScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import MyStack from "./navigation/AppNavigator";
+// import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // import { Header } from "react-native/Libraries/NewAppScreen";
+
+// const Stack = createNativeStackNavigator();
 
 export default function App() {
   let [fontsLoaded, fontError] = useFonts({
@@ -23,7 +28,9 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <HomeScreen />
+      <NavigationContainer>
+        <MyStack />
+      </NavigationContainer>
     </Provider>
   );
 }
