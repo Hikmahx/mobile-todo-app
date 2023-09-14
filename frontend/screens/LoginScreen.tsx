@@ -16,6 +16,7 @@ import tw from "../lib/tailwind";
 import { Svg, Path, G, Mask } from "react-native-svg";
 // import { Link, useRouter } from "expo-router";
 import BgImage from "../assets/bg.png";
+import { Link, useNavigation } from "@react-navigation/native";
 
 type FormData = {
   firstName: string;
@@ -33,16 +34,21 @@ const LoginScreen = () => {
     mode: "onChange",
   });
 
-  // const router = useRouter();
+  const navigation = useNavigation();
   const [showPassword, setshowPassword] = useState<Boolean>(false);
 
   const onSubmit = (data: FormData) => {
     console.log(data);
-    // router.push("/home");
+    // navigation.navigate("Home", {}); 
+    navigation.navigate("Home"); 
+    // navigation.reset({
+    //   index: 0,
+    //   routes: [{ name: "Home" }],
+    // });
   };
 
   return (
-    <ScrollView style={[tw`bg-`]}>
+    <ScrollView style={[tw`bg-white`]}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "position" : undefined}
         style={tw`flex-1`}
@@ -77,7 +83,7 @@ const LoginScreen = () => {
                 <View>
                   <TextInput
                     style={[
-                      tw`bg-stone-50 px-4 py-2 text-base rounded-md w-full placeholder:text-red-400 focus:outline-none focus:border-blue focus:bg-white`,
+                      tw`bg-stone-50 px-4 py-2 text-sm rounded-md w-full placeholder:text-red-400 focus:outline-none focus:border-blue focus:bg-white lowercase`,
                       styles.input,
                       styles.inputFocus,
                       { fontFamily: "JosefinSans_400Regular" },
@@ -247,9 +253,15 @@ const LoginScreen = () => {
             <Text style={[tw`mr-1`, { fontFamily: "JosefinSans_400Regular" }]}>
               Don’t have an account?
             </Text>
-            {/* <Link href="/register" style={tw`text-red-500 font-bold`}>
+            <Link
+              to={{ screen: "RegitsterScreen" }}
+              style={[
+                tw`text-red-500 font-bold`,
+                { fontFamily: "JosefinSans_400Regular" },
+              ]}
+            >
               Sign Up
-            </Link> */}
+            </Link>
           </View>
         </View>
       </KeyboardAvoidingView>
