@@ -3,7 +3,8 @@ const dotenv = require("dotenv");
 const { connectDB } = require("./config/db");
 const path = require("path");
 const cors = require("cors");
-
+const { graphqlHTTP } = require("express-graphql")
+const schema = require('./schema/schema')
 dotenv.config({ path: "./config/config.env" });
 connectDB();
 
@@ -15,13 +16,11 @@ app.use(express.json({ extended: false }));
 app.use(cors());
 
 // ROUTES
-app.use("/api/auth", require("./routes/authRoute"));
-app.use("/api/users", require("./routes/userRoute"));
-app.use("/api/todos", require("./routes/todoRoute"));
+app.use('/graphql', graphqlHTTP({
+  schema,
+  graphiql: process.env.NODE_ENV === 'development',
+}));
 
-app.get("/", (req: any, res: any) => {
-  console.log("Hello world");
-  return res.status(200).json({ message: "Hi there! This is a backend project for todo mobile app. Check my GitHub: https://github.com/Hikmahx/mobile-todo-app for more info" });
-});
+
 
 app.listen(PORT, () => console.log("This is listening on PORT: " + PORT));
