@@ -10,11 +10,12 @@ import { store } from "./redux/store";
 import HomeScreen from "./screens/HomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import MyStack from "./navigation/AppNavigator";
-// import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
-// import { Header } from "react-native/Libraries/NewAppScreen";
-
-// const Stack = createNativeStackNavigator();
+const client = new ApolloClient({
+  uri: "https://localhost:5000/graphql",
+  cache: new InMemoryCache(),
+});
 
 export default function App() {
   let [fontsLoaded, fontError] = useFonts({
@@ -27,10 +28,12 @@ export default function App() {
   }
 
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <MyStack />
-      </NavigationContainer>
-    </Provider>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <NavigationContainer>
+          <MyStack />
+        </NavigationContainer>
+      </Provider>
+    </ApolloProvider>
   );
 }
