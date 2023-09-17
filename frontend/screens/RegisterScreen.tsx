@@ -16,6 +16,7 @@ import tw from "../lib/tailwind";
 import { Svg, Path, G, Mask } from "react-native-svg";
 // import { Link, useRouter } from "expo-router";
 import BgImage from "../assets/bg.png";
+import { Link } from "@react-navigation/native";
 
 type FormData = {
   firstName: string;
@@ -48,7 +49,9 @@ const RegisterScreen = () => {
         style={tw``}
       >
         <View style={tw`h-fit flex`}>
-          <Image source={BgImage} style={tw``} />
+          <Image source={BgImage}
+          //  style={tw``} 
+           />
         </View>
         <View
           style={tw`relative my-20 bg-white flex-1 items-center justify-center px-6 max-w-lg w-full mx-auto flex-1 h-full`}
@@ -315,9 +318,15 @@ const RegisterScreen = () => {
             <Text style={[tw`mr-1`, { fontFamily: "JosefinSans_400Regular" }]}>
               Already have an account?
             </Text>
-            {/* <Link href="/login" style={[tw`text-red-500 font-bold`, { fontFamily: "JosefinSans_400Regular" }]}>
+            <Link
+              to={{ screen: "LoginScreen" }}
+              style={[
+                tw`text-red-500 font-bold`,
+                { fontFamily: "JosefinSans_400Regular" },
+              ]}
+            >
               Sign In
-            </Link> */}
+            </Link>
           </View>
         </View>
       </KeyboardAvoidingView>
