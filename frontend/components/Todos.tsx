@@ -31,7 +31,7 @@ const Todos = () => {
   return (
     <ScrollView style={tw`flex-1 px-6`}>
       <View
-        style={tw`mt-4 pb-6 relative px-4 w-full transition-colors rounded flex items-center justify-center shadow-lg ${
+        style={tw`mt-4 pb-6 relative px-4 w-full   rounded flex items-center justify-center shadow-lg ${
           !darkMode ? "bg-white" : "bg-very-dark-desaturated-blue"
         }`}
       >
@@ -73,7 +73,7 @@ const Todos = () => {
             </TouchableOpacity>
           </View>
           <View
-            style={tw` flex flex-col items-center relative transition-colors shadow-xl rounded`}
+            style={tw` flex flex-col items-center relative   shadow-xl rounded`}
           ></View>
         </View>
       </View>

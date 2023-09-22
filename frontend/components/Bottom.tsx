@@ -14,7 +14,7 @@ const Bottom = () => {
   return (
     <View>
       <View
-        style={tw`mt-4 py-4 relative px-4 w-full transition-colors rounded flex items-center justify-center shadow-lg ${
+        style={tw`mt-4 py-4 relative px-4 w-full rounded flex items-center justify-center shadow-lg ${
           !darkMode ? "bg-white" : "bg-very-dark-desaturated-blue"
         }`}
       >
