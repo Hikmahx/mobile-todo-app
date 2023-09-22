@@ -254,7 +254,7 @@ const LoginScreen = () => {
               Don’t have an account?
             </Text>
             <Link
-              to={{ screen: "RegitsterScreen" }}
+              to={{ screen: "Register" }}
               style={[
                 tw`text-red-500 font-bold`,
                 { fontFamily: "JosefinSans_400Regular" },

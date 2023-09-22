@@ -43,7 +43,7 @@ const RegisterScreen = () => {
   };
 
   return (
-    <ScrollView style={[tw`h-full flex-1`]}>
+    <ScrollView style={[tw`h-full flex-1 bg-white`]}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "position" : undefined}
         style={tw``}
@@ -319,7 +319,7 @@ const RegisterScreen = () => {
               Already have an account?
             </Text>
             <Link
-              to={{ screen: "LoginScreen" }}
+              to={{ screen: "Login" }}
               style={[
                 tw`text-red-500 font-bold`,
                 { fontFamily: "JosefinSans_400Regular" },
