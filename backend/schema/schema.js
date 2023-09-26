@@ -46,7 +46,7 @@ const mutation = new GraphQLObjectType({
       type: TodoType,
       args: {
         todo: { type: new GraphQLNonNull(GraphQLString) },
-        completed: { type: GraphQLBoolean },
+        completed: { type: GraphQLBoolean, defaultValue: false },
         tags: { type: new GraphQLList(GraphQLString) },
       },
       resolve(parent, args) {
