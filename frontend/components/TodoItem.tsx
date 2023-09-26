@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Image } from "react-native";
+import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import tw from "../lib/tailwind";
 import { todos } from "../todos.json";
@@ -8,9 +8,23 @@ import Cross from "../assets/svg/icon-cross.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CheckBtn from "./CheckBtn";
+import { useMutation } from "@apollo/client";
+import { DELETE_TODO } from "../GraphQL/Mutations/todoMutations";
+import { GET_TODOS } from "../GraphQL/Queries/todoQueries";
 
 const TodoItem = ({ item }: { item: any }) => {
   const { darkMode } = useSelector((state: RootState) => state.todo);
+
+  const [deleteTodo] = useMutation(DELETE_TODO);
+
+  const handleDeleteTodo = () => {
+    deleteTodo({
+      variables: {
+        id: item.id,
+      },
+    refetchQueries: [{ query: GET_TODOS }],
+    });
+  };
 
   return (
     <View style={tw`w-full max-w-lg mx-auto`}>
@@ -39,7 +53,9 @@ const TodoItem = ({ item }: { item: any }) => {
         </Text>
         <View style={tw`mr-4 flex flex-row justify-end items-center`}>
           <Pencil style={tw`mr-2`} />
-          <Cross />
+          <TouchableOpacity onPress={handleDeleteTodo}>
+            <Cross />
+          </TouchableOpacity>
         </View>
       </View>
     </View>
