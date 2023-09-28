@@ -28,13 +28,13 @@ const Form = () => {
   };
 
   return (
-    <View style={tw`mx-6`}>
+    <View style={tw`mx-6 w-full`}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "position" : undefined}
         // style={tw`flex-1 mt-16`}
       >
         <View
-          style={tw`-mt-6 relative px-4 w-full h-12 rounded flex items-center justify-center shadow-lg ${
+          style={tw`relative px-4 w-full h-12 rounded flex items-center justify-center shadow-lg ${
             !darkMode ? "bg-white" : "bg-very-dark-desaturated-blue"
           }`}
         >
