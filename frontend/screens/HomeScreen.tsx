@@ -1,7 +1,7 @@
 import { ScrollView, View, Text, Pressable } from "react-native";
 import React, { useState } from "react";
 import tw from "../lib/tailwind";
-import Form from "../components/Form";
+import Search from "../components/Search";
 import CheckBtn from "../components/CheckBtn";
 import Header from "../components/Header";
 import { useSelector } from "react-redux";
@@ -32,7 +32,7 @@ const HomeScreen = () => {
     >
       <View style={tw` ${!darkMode ? "bg-gray" : "bg-very-dark-blue"}`}>
         <Header />
-        <Form />
+        <Search />
       </View>
       {/* <TodoItem */}
 
