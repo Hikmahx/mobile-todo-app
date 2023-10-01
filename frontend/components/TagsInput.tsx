@@ -4,12 +4,19 @@ import tw from "../lib/tailwind";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { XMarkIcon } from "react-native-heroicons/outline";
+import { useForm, Controller } from "react-hook-form"; // Import React Hook Form
 
 const TagsInput = () => {
   const { darkMode } = useSelector((state: RootState) => state.todo);
 
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
+
+  const { control, handleSubmit, formState } = useForm({
+    mode: "onChange",
+  });
+
+  const { errors } = formState;
 
   const removeTag = (tagToRemove: string) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
@@ -24,6 +31,7 @@ const TagsInput = () => {
     }
   };
 
+
   return (
     <View style={tw`mb-8 mt-4`}>
       <View
@@ -31,7 +39,6 @@ const TagsInput = () => {
           !darkMode ? "bg-white" : "bg-very-dark-desaturated-blue"
         }`}
       >
-        {/* {tags.length > 0 && ( */}
         <View style={tw`flex flex-row flex-wrap`}>
           {tags.map((tag, index) => (
             <View key={tag} style={tw`m-1`}>
@@ -50,22 +57,38 @@ const TagsInput = () => {
               </View>
             </View>
           ))}
-          <TextInput
-            style={tw`bg-transparent lowercase flex-1 h-8 min-w-[40px] flex focus:outline-none pl-3 text-xs lg:text-lg focus:border 
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                style={tw`relative bg-transparent lowercase flex-1 h-8 min-w-[40px] flex focus:outline-none pl-3 text-xs lg:text-lg focus:border 
             ${
               !darkMode
                 ? "text-darkest-grayish-blue"
                 : "text-gray placeholder:text-white"
             }
             `}
-            value={newTag}
-            onChangeText={setNewTag}
-            onSubmitEditing={addTag}
-            placeholder="Add a tag (optional)..."
-            placeholderTextColor={`${darkMode ? "#fff" : "#333"}`}
+                value={newTag}
+                onChangeText={(text) => {
+                  onChange(text);
+                  setNewTag(text); // Update local state
+                }}
+                onSubmitEditing={addTag}
+                onBlur={onBlur}
+                placeholder="Add a tag (optional)..."
+                placeholderTextColor={`${darkMode ? "#fff" : "#333"}`}
+              />
+            )}
+            name="tag"
+            rules={{ required: false, minLength: 2 }}
+            defaultValue=""
           />
+          {errors.tag && (
+            <Text style={tw`absolute -bottom-6 left-0 text-red-500 text-xs italic`}>
+              A tag must be at least 2 characters long.
+            </Text>
+          )}
         </View>
-        {/* )} */}
       </View>
     </View>
   );
