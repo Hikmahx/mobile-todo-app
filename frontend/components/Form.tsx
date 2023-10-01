@@ -38,6 +38,7 @@ const Form = () => {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({
     mode: "onChange",
@@ -49,6 +50,9 @@ const Form = () => {
       tags: tags,
     };
     console.log(formData);
+
+    setValue("todo", "");
+    setTags([]);
   };
 
 

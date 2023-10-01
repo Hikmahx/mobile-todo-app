@@ -80,7 +80,7 @@ const TagsInput = ({ onTagsChange, tags, setTags }: TagsInputProps) => {
                 }}
                 onSubmitEditing={addTag}
                 onBlur={onBlur}
-                placeholder="Add a tag (optional)..."
+                placeholder="Add tags (optional), press Enter after each..."
                 placeholderTextColor={`${darkMode ? "#fff" : "#333"}`}
               />
             )}
