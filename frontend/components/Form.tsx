@@ -25,9 +25,14 @@ type FormData = {
 const Form = () => {
   const { darkMode } = useSelector((state: RootState) => state.todo);
   const [input, setInput] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
 
   const inputTodo = (text: string) => {
     setInput(text);
+  };
+
+  const onTagsChange = (updatedTags: string[]) => {
+    setTags(updatedTags);
   };
 
   const {
@@ -39,8 +44,13 @@ const Form = () => {
   });
 
   const onSubmit = (data: FormData) => {
-    console.log(data);
+    const formData = {
+      todo: data.todo,
+      tags: tags,
+    };
+    console.log(formData);
   };
+
 
   return (
     <View style={tw`mx-6 w-full`}>
@@ -86,15 +96,18 @@ const Form = () => {
               // defaultValue=""
             />
             {errors.todo && (
-              <Text style={[tw`text-red-500 mt-1`, { fontStyle: "italic" }]}>
-                {errors.todo.message}
+            <Text style={tw`absolute -top-6 left-0 text-red-500 text-xs italic`}>
+            {errors.todo.message}
               </Text>
             )}
           </View>
           {/* </View> */}
         </View>
-        <TagsInput 
-        // control={control} errors={errors} 
+        <TagsInput
+          // control={control} errors={errors}
+          onTagsChange={onTagsChange}
+          tags={tags}
+          setTags={setTags}
         />
 
         <View style={tw`w-full mb-4`}>

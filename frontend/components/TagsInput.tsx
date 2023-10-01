@@ -6,10 +6,15 @@ import { RootState } from "../redux/store";
 import { XMarkIcon } from "react-native-heroicons/outline";
 import { useForm, Controller } from "react-hook-form"; // Import React Hook Form
 
-const TagsInput = () => {
+type TagsInputProps = {
+  onTagsChange: (updatedTags: string[]) => void;
+  tags: string[];
+  setTags: React.Dispatch<React.SetStateAction<string[]>>;
+};
+
+const TagsInput = ({ onTagsChange, tags, setTags }: TagsInputProps) => {
   const { darkMode } = useSelector((state: RootState) => state.todo);
 
-  const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
 
   const { control, handleSubmit, formState } = useForm({
