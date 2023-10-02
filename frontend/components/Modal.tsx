@@ -40,7 +40,7 @@ const TodoModal = ({
       >
         Add Todo
       </Text>
-      <Form />
+      <Form closeModal={closeModal} />
     </Modal>
   );
 };

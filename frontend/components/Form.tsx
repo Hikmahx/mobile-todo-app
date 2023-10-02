@@ -15,14 +15,17 @@ import { RootState } from "../redux/store";
 import Check from "../assets/svg/icon-check.svg";
 import CheckBtn from "./CheckBtn";
 import TagsInput from "./TagsInput";
-import { useForm, Controller } from "react-hook-form"; // Import React Hook Form
+import { useForm, Controller } from "react-hook-form";
+import { useMutation } from "@apollo/client";
+import { ADD_TODO } from "../GraphQL/Mutations/todoMutations";
+import { GET_TODOS } from "../GraphQL/Queries/todoQueries";
 
 type FormData = {
   todo: string;
   tags: string[];
 };
 
-const Form = () => {
+const Form = ({ closeModal }: { closeModal: any }) => {
   const { darkMode } = useSelector((state: RootState) => state.todo);
   const [input, setInput] = useState("");
   const [tags, setTags] = useState<string[]>([]);
@@ -44,17 +47,32 @@ const Form = () => {
     mode: "onChange",
   });
 
-  const onSubmit = (data: FormData) => {
-    const formData = {
-      todo: data.todo,
-      tags: tags,
-    };
-    console.log(formData);
+  const [addTodo, { error: mutationError }] = useMutation(ADD_TODO);
+  const [formChanged, setFormChanged] = useState(false);
 
-    setValue("todo", "");
-    setTags([]);
+  const onSubmit = async (data: FormData) => {
+    try {
+      const { todo } = data;
+
+      const result = await addTodo({
+        variables: {
+          todo: todo,
+          // completed: false,
+          tags: tags,
+        },
+        refetchQueries: [{ query: GET_TODOS }],
+      });
+
+      console.log("Todo added:", result.data.addTodo);
+
+      setValue("todo", "");
+      setTags([]);
+      closeModal;
+    } catch (error) {
+      setFormChanged(false); 
+      console.error("Error adding todo:", error);
+    }
   };
-
 
   return (
     <View style={tw`mx-6 w-full`}>
@@ -62,6 +80,11 @@ const Form = () => {
         behavior={Platform.OS === "ios" ? "position" : undefined}
         // style={tw`flex-1 mt-16`}
       >
+        {mutationError && !formChanged && (
+        <Text style={tw`text-red-500 text-xs italic`}>
+          An error occurred while adding the todo.
+        </Text>
+      )}
         <View
           style={tw`relative px-4 w-full h-12 rounded flex items-center justify-center shadow-lg ${
             !darkMode ? "bg-white" : "bg-very-dark-desaturated-blue"
@@ -88,7 +111,10 @@ const Form = () => {
                   }`}
                   selectionColor={"#146BFB"}
                   onBlur={onBlur}
-                  onChangeText={onChange}
+                  onChangeText={(text) => {
+                    onChange(text);
+                    setFormChanged(true);
+                  }}                  
                   value={value}
                   accessibilityLabel="Todo"
                   accessibilityHint="Enter todo item"
@@ -100,8 +126,10 @@ const Form = () => {
               // defaultValue=""
             />
             {errors.todo && (
-            <Text style={tw`absolute -top-6 left-0 text-red-500 text-xs italic`}>
-            {errors.todo.message}
+              <Text
+                style={tw`absolute -top-6 left-0 text-red-500 text-xs italic`}
+              >
+                {errors.todo.message}
               </Text>
             )}
           </View>
