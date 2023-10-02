@@ -47,7 +47,7 @@ const Form = ({ closeModal }: { closeModal: any }) => {
     mode: "onChange",
   });
 
-  const [addTodo, { error: mutationError }] = useMutation(ADD_TODO);
+  const [addTodo, { loading, error: mutationError }] = useMutation(ADD_TODO);
   const [formChanged, setFormChanged] = useState(false);
 
   const onSubmit = async (data: FormData) => {
@@ -57,7 +57,7 @@ const Form = ({ closeModal }: { closeModal: any }) => {
       const result = await addTodo({
         variables: {
           todo: todo,
-          // completed: false,
+          completed: false,
           tags: tags,
         },
         refetchQueries: [{ query: GET_TODOS }],
@@ -67,7 +67,7 @@ const Form = ({ closeModal }: { closeModal: any }) => {
 
       setValue("todo", "");
       setTags([]);
-      closeModal;
+      closeModal();
     } catch (error) {
       setFormChanged(false); 
       console.error("Error adding todo:", error);
@@ -144,7 +144,7 @@ const Form = ({ closeModal }: { closeModal: any }) => {
 
         <View style={tw`w-full mb-4`}>
           <TouchableOpacity
-            style={tw`bg-blue px-4 py-2 rounded-md w-full max-w-md mt-8 mx-auto`}
+            style={tw`px-4 py-2 rounded-md w-full max-w-md mt-8 mx-auto ${loading? 'bg-[#b2effe]': 'bg-blue'}`}
             onPress={handleSubmit(onSubmit)}
             accessibilityRole="button"
             accessibilityLabel="Register"
@@ -155,7 +155,7 @@ const Form = ({ closeModal }: { closeModal: any }) => {
                 { fontFamily: "JosefinSans_700Bold" },
               ]}
             >
-              Create
+              {!loading? 'Create' : 'Loading...'}
             </Text>
           </TouchableOpacity>
         </View>
