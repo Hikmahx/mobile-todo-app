@@ -35,7 +35,7 @@ const TodoItem = ({ item }: { item: any }) => {
             : "border-dark-grayish-blue-dark"
         }`}
       >
-        <CheckBtn completed={item.completed} />
+        <CheckBtn completed={item.completed} id={item.id}/>
 
         <Text
           style={[

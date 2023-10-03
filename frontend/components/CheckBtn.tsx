@@ -5,20 +5,36 @@ import Check from "../assets/svg/icon-check.svg";
 import tw from "../lib/tailwind";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { useMutation } from "@apollo/client";
+import { UPDATE_TODO } from "../GraphQL/Mutations/todoMutations";
+import { GET_TODOS } from "../GraphQL/Queries/todoQueries";
 
-const CheckBtn = ({
-  completed,
-}: {
+interface CheckBtnProps {
   completed: boolean;
-}) => {
+  id?: any;
+}
+
+const CheckBtn = ({ completed, id }: CheckBtnProps) => {
   // const [completed, setCompleted] = useState(false);
   const { darkMode } = useSelector((state: RootState) => state.todo);
+  const [updateTodo] = useMutation(UPDATE_TODO);
 
+  const handleUpdateTodo = (id: any) => {
+    updateTodo({
+      variables: {
+        id: id,
+        completed: !completed,
+      },
+      refetchQueries: [{ query: GET_TODOS }],
+    });
+  };
   return (
     <View>
       {completed ? (
         <Pressable
-        // onPress={() => setCompleted(false)}
+          onPress={() => {
+            id && handleUpdateTodo(id);
+          }}
         >
           <View
             style={tw`w-2 h-2 p-3 rounded-full flex items-center justify-center ${
@@ -34,7 +50,9 @@ const CheckBtn = ({
         </Pressable>
       ) : (
         <Pressable
-        // onPress={() => setCompleted(true)}
+          onPress={() => {
+            id && handleUpdateTodo(id);
+          }}
         >
           <LinearGradient
             // Button Linear Gradient
