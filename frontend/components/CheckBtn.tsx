@@ -6,14 +6,20 @@ import tw from "../lib/tailwind";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
-const CheckBtn = (todoCompleted: any) => {
-  const [completed, setCompleted] = useState(false);
+const CheckBtn = ({
+  completed,
+}: {
+  completed: boolean;
+}) => {
+  // const [completed, setCompleted] = useState(false);
   const { darkMode } = useSelector((state: RootState) => state.todo);
 
   return (
     <View>
       {completed ? (
-        <Pressable onPress={() => setCompleted(false)}>
+        <Pressable
+        // onPress={() => setCompleted(false)}
+        >
           <View
             style={tw`w-2 h-2 p-3 rounded-full flex items-center justify-center ${
               !darkMode ? "bg-[#dfdfdf]" : "bg-[#6f6f6f]"
@@ -27,7 +33,9 @@ const CheckBtn = (todoCompleted: any) => {
           </View>
         </Pressable>
       ) : (
-        <Pressable onPress={() => setCompleted(true)}>
+        <Pressable
+        // onPress={() => setCompleted(true)}
+        >
           <LinearGradient
             // Button Linear Gradient
             colors={["#57ddff", "#c058f3"]}

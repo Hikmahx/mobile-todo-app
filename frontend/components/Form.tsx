@@ -94,7 +94,7 @@ const Form = ({ closeModal }: { closeModal: any }) => {
           <View
             style={tw`relative w-full flex flex-row items-center justify-center`}
           >
-            <CheckBtn />
+            <CheckBtn completed={false} />
             <Controller
               control={control}
               rules={{
