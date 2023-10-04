@@ -5,25 +5,38 @@ import { todos } from "../todos.json";
 import Check from "../assets/svg/icon-check.svg";
 import Pencil from "../assets/svg/icon-pencil.svg";
 import Cross from "../assets/svg/icon-cross.svg";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { AppDispatch, RootState } from "../redux/store";
+import { useSelector, useDispatch } from "react-redux";
 import CheckBtn from "./CheckBtn";
 import { useMutation } from "@apollo/client";
 import { DELETE_TODO } from "../GraphQL/Mutations/todoMutations";
 import { GET_TODOS } from "../GraphQL/Queries/todoQueries";
+import {
+  setUpdate,
+  curItem,
+  setModalVisible,
+} from "../redux/reducers/todoSlice";
 
 const TodoItem = ({ item }: { item: any }) => {
   const { darkMode } = useSelector((state: RootState) => state.todo);
 
   const [deleteTodo] = useMutation(DELETE_TODO);
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleDeleteTodo = () => {
     deleteTodo({
       variables: {
         id: item.id,
       },
-    refetchQueries: [{ query: GET_TODOS }],
+      refetchQueries: [{ query: GET_TODOS }],
     });
+  };
+
+  const displayUpdateModal = () => {
+    console.log(item);
+    dispatch(setUpdate(true));
+    dispatch(curItem(item));
+    dispatch(setModalVisible(true));
   };
 
   return (
@@ -35,7 +48,7 @@ const TodoItem = ({ item }: { item: any }) => {
             : "border-dark-grayish-blue-dark"
         }`}
       >
-        <CheckBtn completed={item.completed} id={item.id}/>
+        <CheckBtn completed={item.completed} id={item.id} />
 
         <Text
           style={[
@@ -52,7 +65,10 @@ const TodoItem = ({ item }: { item: any }) => {
           {item.todo.charAt(0).toUpperCase() + item.todo.slice(1)}
         </Text>
         <View style={tw`mr-4 flex flex-row justify-end items-center`}>
-          <Pencil style={tw`mr-2`} />
+          <TouchableOpacity onPress={displayUpdateModal}>
+            <Pencil style={tw`mr-2`} />
+          </TouchableOpacity>
+
           <TouchableOpacity onPress={handleDeleteTodo}>
             <Cross />
           </TouchableOpacity>
