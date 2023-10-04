@@ -4,6 +4,10 @@ import Modal from "react-native-modal";
 import tw from "../lib/tailwind";
 import Cross from "../assets/svg/icon-cross.svg";
 import Form from "./Form";
+import UpdateForm from "./UpdateForm";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { PencilIcon } from "react-native-heroicons/outline";
 
 const TodoModal = ({
   isVisible,
@@ -14,6 +18,8 @@ const TodoModal = ({
   closeModal: any;
   darkMode: boolean;
 }) => {
+  const { update, item } = useSelector((state: RootState) => state.todo);
+
   return (
     <Modal
       isVisible={isVisible}
@@ -24,7 +30,15 @@ const TodoModal = ({
       <View
         style={tw`h-16 w-16 p-2 bg-purple rounded-full shadow-lg flex items-center justify-center mb-6`}
       >
-        <Text style={tw`font-bold text-3xl text-white`}>+</Text>
+        {update ? (
+          <>
+            <PencilIcon style={tw`font-bold text-3xl text-white`} />
+          </>
+        ) : (
+          <>
+            <Text style={tw`font-bold text-3xl text-white`}>+</Text>
+          </>
+        )}
       </View>
       <TouchableOpacity onPress={closeModal} style={tw`absolute top-8 right-8`}>
         <Cross />
@@ -38,9 +52,13 @@ const TodoModal = ({
           { fontFamily: "JosefinSans_400Regular" },
         ]}
       >
-        Add Todo
+        {update ? "Update" : "Add"} Todo
       </Text>
-      <Form closeModal={closeModal} />
+      {!update ? (
+        <Form closeModal={closeModal} />
+      ) : (
+        <UpdateForm closeModal={closeModal} item={item} />
+      )}
     </Modal>
   );
 };
