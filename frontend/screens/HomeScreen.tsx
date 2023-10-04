@@ -4,23 +4,25 @@ import tw from "../lib/tailwind";
 import Search from "../components/Search";
 import CheckBtn from "../components/CheckBtn";
 import Header from "../components/Header";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
 import TodoItem from "../components/TodoItem";
 import Todos from "../components/Todos";
 import TodoModal from "../components/Modal";
+import { setModalVisible, setUpdate } from "../redux/reducers/todoSlice";
 
 const HomeScreen = () => {
-  const { darkMode } = useSelector((state: RootState) => state.todo);
+  const { darkMode, isModalVisible } = useSelector((state: RootState) => state.todo);
 
-  const [isModalVisible, setModalVisible] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
 
   const openModal = () => {
-    setModalVisible(true);
+    dispatch(setModalVisible(true));
   };
 
   const closeModal = () => {
-    setModalVisible(false);
+    dispatch(setModalVisible(false));
+    dispatch(setUpdate(false));
   };
 
   return (

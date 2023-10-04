@@ -87,7 +87,8 @@ const initialState = {
   total: 0,
   loading: false,
   update: false,
-  item: {}
+  item: {},
+  isModalVisible: false
 };
 
 const TodoSlice = createSlice({
@@ -105,6 +106,9 @@ const TodoSlice = createSlice({
     },
     curItem: (state, action)=>{
       state.item = action.payload
+    },
+    setModalVisible: (state, action)=>{
+      state.isModalVisible = action.payload;
     }
     // setTodo: (state, action) => {},
     // inputTodo: (state, action) => {},
@@ -176,6 +180,6 @@ const TodoSlice = createSlice({
   },
 });
 
-export const { setDarkMode, setUpdate, curItem } = TodoSlice.actions;
+export const { setDarkMode, setUpdate, curItem, setModalVisible } = TodoSlice.actions;
 
 export default TodoSlice.reducer;
