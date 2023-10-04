@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import tw from "../lib/tailwind";
-import { TextInput, TouchableOpacity, View, Text, Platform, KeyboardAvoidingView } from "react-native";
+import {
+  TextInput,
+  TouchableOpacity,
+  View,
+  Text,
+  Platform,
+  KeyboardAvoidingView,
+} from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import CheckBtn from "./CheckBtn";
 import TagsInput from "./TagsInput";
@@ -10,27 +17,22 @@ import { useMutation } from "@apollo/client";
 import { UPDATE_TODO } from "../GraphQL/Mutations/todoMutations";
 import { GET_TODOS } from "../GraphQL/Queries/todoQueries";
 type UpdateFormProps = {
-  item: any
-  closeModal: any
+  item: any;
+  closeModal: any;
 };
 
 type FormData = {
   todo: string;
   tags: string[];
-  completed: boolean
+  completed: boolean;
 };
 
-const UpdateForm: React.FC<UpdateFormProps> = ({
-  item,
-  closeModal
-}) => {
+const UpdateForm: React.FC<UpdateFormProps> = ({ item, closeModal }) => {
   const { darkMode, update } = useSelector((state: RootState) => state.todo);
-  const [input, setInput] = useState(item.todo); 
+  const [input, setInput] = useState(item.todo);
   const [tags, setTags] = useState(item.tags);
   const [addTodo, { loading, error: mutationError }] = useMutation(UPDATE_TODO);
   const [formChanged, setFormChanged] = useState(false);
-
-
 
   const {
     control,
@@ -52,7 +54,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({
       // const updatedTodo = { ...todo, todo: input };
 
       // console.log(updatedTodo);
-      console.log(data)
+      console.log(data);
     } catch (error) {
       console.error("Error updating todo:", error);
     }
@@ -65,10 +67,10 @@ const UpdateForm: React.FC<UpdateFormProps> = ({
         // style={tw`flex-1 mt-16`}
       >
         {mutationError && !formChanged && (
-        <Text style={tw`text-red-500 text-xs italic`}>
-          An error occurred while adding the todo.
-        </Text>
-      )}
+          <Text style={tw`text-red-500 text-xs italic`}>
+            An error occurred while adding the todo.
+          </Text>
+        )}
         <View
           style={tw`relative px-4 w-full h-12 rounded flex items-center justify-center shadow-lg ${
             !darkMode ? "bg-white" : "bg-very-dark-desaturated-blue"
@@ -97,8 +99,9 @@ const UpdateForm: React.FC<UpdateFormProps> = ({
                   onBlur={onBlur}
                   onChangeText={(text) => {
                     onChange(text);
+                    setInput(text);
                     setFormChanged(true);
-                  }}                  
+                  }}
                   value={input}
                   accessibilityLabel="Todo"
                   accessibilityHint="Enter todo item"
@@ -128,7 +131,9 @@ const UpdateForm: React.FC<UpdateFormProps> = ({
 
         <View style={tw`w-full mb-4`}>
           <TouchableOpacity
-            style={tw`px-4 py-2 rounded-md w-full max-w-md mt-8 mx-auto ${loading? 'bg-[#b2effe]': 'bg-blue'}`}
+            style={tw`px-4 py-2 rounded-md w-full max-w-md mt-8 mx-auto ${
+              loading ? "bg-[#b2effe]" : "bg-blue"
+            }`}
             onPress={handleSubmit(onSubmit)}
             accessibilityRole="button"
             accessibilityLabel="Register"
@@ -139,7 +144,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({
                 { fontFamily: "JosefinSans_700Bold" },
               ]}
             >
-              {!loading? 'Update' : 'Loading...'}
+              {!loading ? "Update" : "Loading..."}
             </Text>
           </TouchableOpacity>
         </View>
