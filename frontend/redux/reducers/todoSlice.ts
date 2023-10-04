@@ -86,7 +86,8 @@ const initialState = {
   errMessage: "",
   total: 0,
   loading: false,
-  update: false
+  update: false,
+  item: {}
 };
 
 const TodoSlice = createSlice({
@@ -101,6 +102,9 @@ const TodoSlice = createSlice({
     },
     setUpdate: (state, action)=>{
       state.update = action.payload
+    },
+    curItem: (state, action)=>{
+      state.item = action.payload
     }
     // setTodo: (state, action) => {},
     // inputTodo: (state, action) => {},
@@ -172,6 +176,6 @@ const TodoSlice = createSlice({
   },
 });
 
-export const { setDarkMode, setUpdate } = TodoSlice.actions;
+export const { setDarkMode, setUpdate, curItem } = TodoSlice.actions;
 
 export default TodoSlice.reducer;
