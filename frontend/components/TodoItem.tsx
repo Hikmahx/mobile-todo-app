@@ -42,12 +42,15 @@ const TodoItem = ({ item }: { item: any }) => {
   return (
     <View style={tw`w-full max-w-lg mx-auto`}>
       <View
-        style={tw`relative flex flex-row items-center h-auto py-4 border-b ${
+        style={tw`relative flex flex-col h-auto py-4 border-b ${
           !darkMode
             ? "border-light-grayish-blue"
             : "border-dark-grayish-blue-dark"
         }`}
       >
+        <View style={
+          tw`relative flex flex-row items-center h-auto`
+        }>
         <CheckBtn completed={item.completed} id={item.id} />
 
         <Text
@@ -73,6 +76,20 @@ const TodoItem = ({ item }: { item: any }) => {
             <Cross />
           </TouchableOpacity>
         </View>
+        </View>
+        <View style={tw`flex flex-row flex-wrap mt-2 ml-8 ${item.tags.length > 0? '': "mb-1"}`}>
+        {item.tags.map((tag: string, index: number) => (
+          <View key={tag} style={tw`m-1`}>
+            <View
+              style={tw`px-3 py-1 flex flex-row items-center rounded-full ${
+                index % 2 == 0 ? "bg-purple" : "bg-blue"
+              }`}
+            >
+              <Text style={tw`text-xs text-white lowercase`}>{tag}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
       </View>
     </View>
   );
