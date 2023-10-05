@@ -58,8 +58,8 @@ const TodoItem = ({ item }: { item: any }) => {
             tw`relative px-3 sm:max-w-sm first-letter:capitalize flex-wrap flex-1 flex
             ${
               item.completed
-                ? "line-through text-light-grayish-blue"
-                : "text-very-dark-grayish-blue"
+                ? (!darkMode? "line-through text-light-grayish-blue": "line-through text-very-dark-grayish-blue")
+                : (!darkMode? "text-very-dark-grayish-blue": "text-light-grayish-blue")
             }
             `,
             { fontFamily: "JosefinSans_400Regular" },
