@@ -17,25 +17,58 @@ const TagsInput = ({ onTagsChange, tags, setTags }: TagsInputProps) => {
 
   const [newTag, setNewTag] = useState("");
 
-  const { control, handleSubmit, formState } = useForm({
+  // const [tagError, setTagError] = useState<string | null>(null);
+
+  const { control, handleSubmit, formState, setError, clearErrors } = useForm({
     mode: "onChange",
   });
 
   const { errors } = formState;
 
+  // const validateTags = (value: string[]) => {
+  //   if (value.length > 3) {
+  //     setError("tags", {
+  //       type: "manual",
+  //       message: "You can only have up to 3 tags.",
+  //     });
+  //   } else {
+  //     clearErrors("tags");
+  //   }
+  //   return value;
+  // };
+
   const removeTag = (tagToRemove: string) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
+
+    clearErrors("tags");
   };
 
   const addTag = () => {
-    if (newTag.trim() !== "" && newTag.length > 1) {
-      if (!tags.includes(newTag)) {
-        setTags([...tags, newTag]);
+    if (newTag.trim() !== "") {
+      if (newTag.length < 2) {
+        setError("tags", {
+          type: "validate",
+          message: "Tag must be at least 2 characters long.",
+        });
+      } else if (newTag.length > 7) {
+        setError("tags", {
+          type: "validate",
+          message: "Tag cannot be longer than 7 characters.",
+        });
+      } else if (tags.length >= 3) {
+        setError("tags", {
+          type: "validate",
+          message: "You can only have up to 3 tags.",
+        });
+      } else {
+        if (!tags.includes(newTag)) {
+          setTags([...tags, newTag]);
+        }
+        setNewTag("");
+        clearErrors("tags");
       }
-      setNewTag("");
     }
   };
-
 
   return (
     <View style={tw`mb-8 mt-4`}>
@@ -76,23 +109,29 @@ const TagsInput = ({ onTagsChange, tags, setTags }: TagsInputProps) => {
                 value={newTag}
                 onChangeText={(text) => {
                   onChange(text);
-                  setNewTag(text); // Update local state
+                  setNewTag(text);
+                  clearErrors("tags");
                 }}
                 onSubmitEditing={addTag}
                 onBlur={onBlur}
                 placeholder="Add tags (optional), press Enter after each..."
-                placeholderTextColor={`${darkMode ? "#fff" : "#333"}`}
+                placeholderTextColor="#333"
               />
             )}
-            name="tag"
-            rules={{ required: false, minLength: 2 }}
-            defaultValue=""
+            name="tags"
+            // rules={{ validate: validateTags }}
+            defaultValue={tags}
           />
-          {errors.tag && (
-            <Text style={tw`absolute -bottom-6 left-0 text-red-500 text-xs italic`}>
-              A tag must be at least 2 characters long.
+          {errors.tags && typeof errors.tags.message === "string" && (
+            <Text
+              style={tw`absolute -bottom-6 left-0 text-red-500 text-xs italic`}
+            >
+              {errors.tags.message}
             </Text>
           )}
+          {/* {tagError && (
+            <Text style={tw`text-red-500 text-xs italic mt-1`}>{tagError}</Text>
+          )} */}
         </View>
       </View>
     </View>
