@@ -99,7 +99,7 @@ const TodoSlice = createSlice({
       state.darkMode = action.payload;
     },
     totalTodo: (state, action) => {
-      state.total = state.todos.length
+      state.total = action.payload
     },
     setUpdate: (state, action)=>{
       state.update = action.payload
@@ -180,6 +180,6 @@ const TodoSlice = createSlice({
   },
 });
 
-export const { setDarkMode, setUpdate, curItem, setModalVisible } = TodoSlice.actions;
+export const { setDarkMode, setUpdate, curItem, setModalVisible, totalTodo } = TodoSlice.actions;
 
 export default TodoSlice.reducer;

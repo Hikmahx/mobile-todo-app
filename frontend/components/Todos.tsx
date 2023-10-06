@@ -9,6 +9,7 @@ import Bottom from "./Bottom";
 import { todos } from "../todos.json";
 import { GET_TODOS } from "../GraphQL/Queries/todoQueries";
 import { useQuery } from "@apollo/client";
+import { totalTodo } from "../redux/reducers/todoSlice";
 
 const Todos = () => {
   const { loading, error, data, refetch } = useQuery(GET_TODOS);
@@ -23,6 +24,8 @@ const Todos = () => {
   } = useSelector((state: RootState) => state.todo);
   const dispatch = useDispatch<AppDispatch>();
 
+
+
   interface TodoItem {
     id: number;
     todo: string;
@@ -35,6 +38,12 @@ const Todos = () => {
     completed: boolean;
   }
   [];
+
+  useEffect(() => {
+    if (data) {
+      dispatch(totalTodo(data.todos.filter((item: Data)=>!item.completed).length));
+    }
+  }, [data, dispatch]);
 
   if (error) {
     console.log(error);
