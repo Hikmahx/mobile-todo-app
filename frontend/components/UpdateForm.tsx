@@ -106,8 +106,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ item, closeModal }) => {
                   accessibilityLabel="Todo"
                   accessibilityHint="Enter todo item"
                   placeholder="Update todo..."
-                  placeholderTextColor={`${darkMode ? "#fff" : "#333"}`}
-                />
+                  placeholderTextColor="#7E7E7E"
+                  />
               )}
               name="todo"
               // defaultValue=""

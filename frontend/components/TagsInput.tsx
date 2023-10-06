@@ -115,8 +115,8 @@ const TagsInput = ({ onTagsChange, tags, setTags }: TagsInputProps) => {
                 onSubmitEditing={addTag}
                 onBlur={onBlur}
                 placeholder="Add tags (optional), press Enter after each..."
-                placeholderTextColor="#333"
-              />
+                placeholderTextColor="#7E7E7E"
+                />
             )}
             name="tags"
             // rules={{ validate: validateTags }}

@@ -119,8 +119,8 @@ const Form = ({ closeModal }: { closeModal: any }) => {
                   accessibilityLabel="Todo"
                   accessibilityHint="Enter todo item"
                   placeholder="Create a new todo..."
-                  placeholderTextColor={`${darkMode ? "#fff" : "#333"}`}
-                />
+                  placeholderTextColor="#7E7E7E"
+                  />
               )}
               name="todo"
               // defaultValue=""
