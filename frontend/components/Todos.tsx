@@ -8,11 +8,16 @@ import { AppDispatch, RootState } from "../redux/store";
 import Bottom from "./Bottom";
 import { todos } from "../todos.json";
 import { GET_TODOS } from "../GraphQL/Queries/todoQueries";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { totalTodo } from "../redux/reducers/todoSlice";
+import { CLEAR_COMPLETED } from "../GraphQL/Mutations/todoMutations";
 
 const Todos = () => {
   const { loading, error, data, refetch } = useQuery(GET_TODOS);
+  const [
+    clearCompleted,
+    { loading: clearCompletedLoading, error: clearCompletedError },
+  ] = useMutation(CLEAR_COMPLETED);
 
   const {
     darkMode,
@@ -23,8 +28,6 @@ const Todos = () => {
     //  loading
   } = useSelector((state: RootState) => state.todo);
   const dispatch = useDispatch<AppDispatch>();
-
-
 
   interface TodoItem {
     id: number;
@@ -39,9 +42,17 @@ const Todos = () => {
   }
   [];
 
+  const handleClearCompleted = async () => {
+    await clearCompleted({
+      refetchQueries: [{ query: GET_TODOS }],
+    });
+  };
+
   useEffect(() => {
     if (data) {
-      dispatch(totalTodo(data.todos.filter((item: Data)=>!item.completed).length));
+      dispatch(
+        totalTodo(data.todos.filter((item: Data) => !item.completed).length)
+      );
     }
   }, [data, dispatch]);
 
@@ -56,7 +67,7 @@ const Todos = () => {
     );
   }
 
-  if ( loading ) {
+  if (loading) {
     return (
       <View style={tw`flex justify-center mx-auto mt-6`}>
         <Loading />
@@ -65,38 +76,26 @@ const Todos = () => {
   }
 
   return (
-    <ScrollView style={tw`flex-1 px-6`}>
-      <View
-        style={tw`mt-4 pb-6 relative px-4 w-full   rounded flex items-center justify-center shadow-lg ${
-          !darkMode ? "bg-white" : "bg-very-dark-desaturated-blue"
-        }`}
-      >
-        {/* {loading && (
+    <>
+      <ScrollView style={tw`flex-1 px-6`}>
+        <View
+          style={tw`mt-4 pb-6 relative px-4 w-full   rounded flex items-center justify-center shadow-lg ${
+            !darkMode ? "bg-white" : "bg-very-dark-desaturated-blue"
+          }`}
+        >
+          {/* {loading && (
           <View style={tw`flex justify-center mx-auto mt-6`}>
             <Loading />
           </View>
         )} */}
 
-        <View style={tw`max-w-34rem mx-auto w-full`}>
-          {data.todos.map((item: Data) => (
-            <TodoItem key={item.id} item={item} />
-          ))}
+          <View style={tw`max-w-34rem mx-auto w-full`}>
+            {data.todos.map((item: Data) => (
+              <TodoItem key={item.id} item={item} />
+            ))}
 
-          <View
-            style={tw`w-full mt-7 flex flex-row items-center justify-between`}
-          >
-            <Text
-              style={[
-                tw`text-dark-grayish-blue text-xs text-center`,
-                { fontFamily: "JosefinSans_700Bold" },
-              ]}
-            >
-              {total} items left
-            </Text>
-
-            <TouchableOpacity
-              // onPress={() => dispatch(clearCompleted)}
-              style={tw``}
+            <View
+              style={tw`w-full mt-7 flex flex-row items-center justify-between`}
             >
               <Text
                 style={[
@@ -104,17 +103,45 @@ const Todos = () => {
                   { fontFamily: "JosefinSans_700Bold" },
                 ]}
               >
-                Clear Completed
+                {total} items left
               </Text>
-            </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => handleClearCompleted()}
+                style={tw``}
+              >
+                <Text
+                  style={[
+                    tw`text-dark-grayish-blue text-xs text-center`,
+                    { fontFamily: "JosefinSans_700Bold" },
+                  ]}
+                >
+                  Clear Completed
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View
+              style={tw` flex flex-col items-center relative shadow-xl rounded`}
+            ></View>
           </View>
-          <View
-            style={tw` flex flex-col items-center relative shadow-xl rounded`}
-          ></View>
         </View>
-      </View>
-      <Bottom />
-    </ScrollView>
+        <Bottom />
+      </ScrollView>
+      {clearCompletedLoading && (
+        <View
+          style={tw`absolute inset-0 px-4 w-full rounded flex items-center justify-center`}
+        >
+          <Text
+            style={[
+              tw`text-xs text-center text-purple`,
+              { fontFamily: "JosefinSans_700Bold" },
+            ]}
+          >
+            Clearing Completed...
+          </Text>
+        </View>
+      )}
+    </>
   );
 };
 

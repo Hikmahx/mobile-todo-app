@@ -33,7 +33,13 @@ const UPDATE_TODO = gql`
   }
 `;
 
-export { ADD_TODO, DELETE_TODO, UPDATE_TODO };
+const CLEAR_COMPLETED = gql`
+  mutation clearCompletedTodos {
+    clearCompletedTodos
+  }
+`;
+
+export { ADD_TODO, DELETE_TODO, UPDATE_TODO, CLEAR_COMPLETED };
 
 
 

@@ -91,6 +91,16 @@ const mutation = new GraphQLObjectType({
         return Todo.findByIdAndRemove(args.id);
       },
     },
+    clearCompletedTodos: {
+      type: GraphQLBoolean, // Return a Boolean to indicate success
+
+      resolve(parent, args) {
+        // return Todo.delete(args.completed === true);
+        return Todo.deleteMany({ completed: true })
+          .then(() => true)
+          .catch((e) => console.log(e));
+      },
+    },
   },
 });
 
