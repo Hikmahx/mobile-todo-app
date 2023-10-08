@@ -6,6 +6,13 @@ interface KnownError {
   errMessage: string;
 }
 
+export interface Todo {
+  id: string;
+  completed: boolean;
+  todo: string;
+  tags: string[];
+}
+
 const API_LINK = "backend-link";
 
 export const addTodo = createAsyncThunk(
@@ -79,8 +86,8 @@ export const deleteTodo = createAsyncThunk(
 
 const initialState = {
   darkMode: false,
-  todos: [],
-  filterTodos: [],
+  todos: [] as Todo[],
+  filterTodos: [] as Todo[],
   todo: [],
   error: false,
   errMessage: "",
@@ -89,7 +96,7 @@ const initialState = {
   update: false,
   item: {},
   isModalVisible: false,
-  filter: 'all'
+  filter: "all",
 };
 
 const TodoSlice = createSlice({
@@ -117,14 +124,22 @@ const TodoSlice = createSlice({
     setFilterTodos: (state, action) => {
       state.filterTodos = action.payload;
     },
-    filterStatus: (state, {payload}) => {
-       state.filter = payload;
-      if (state.filter === "completed") {
-        state.filterTodos = state.todos.filter((todo) => todo.completed);
-      } else if (state.filter === "active") {
-        state.filterTodos = state.todos.filter((todo) => !todo.completed);
-      } else {
-        state.filterTodos = state.todos;
+    filterStatus: (state, { payload }) => {
+      state.filter = payload;
+
+      switch (state.filter) {
+        case "all":
+          state.filterTodos = state.todos;
+          break;
+        case "completed":
+          state.filterTodos = state.todos.filter((todo) => todo.completed);
+          break;
+        case "active":
+          state.filterTodos = state.todos.filter((todo) => !todo.completed);
+          break;
+        default:
+          state.filterTodos = state.todos;
+          break;
       }
     },
   },
@@ -197,7 +212,7 @@ export const {
   totalTodo,
   setTodos,
   filterStatus,
-  setFilterTodos
+  setFilterTodos,
 } = TodoSlice.actions;
 
 export default TodoSlice.reducer;

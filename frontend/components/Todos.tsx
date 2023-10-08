@@ -13,6 +13,7 @@ import {
   filterStatus,
   setFilterTodos,
   setTodos,
+  Todo,
   totalTodo,
 } from "../redux/reducers/todoSlice";
 import { CLEAR_COMPLETED } from "../GraphQL/Mutations/todoMutations";
@@ -42,12 +43,12 @@ const Todos = () => {
     completed: boolean;
   }
 
-  interface Data {
-    id: number;
-    todo: string;
-    completed: boolean;
-  }
-  [];
+  // interface Data {
+  //   id: number;
+  //   todo: string;
+  //   completed: boolean;
+  // }
+  // [];
 
   const handleClearCompleted = async () => {
     await clearCompleted({
@@ -58,7 +59,7 @@ const Todos = () => {
   useEffect(() => {
     if (data) {
       dispatch(
-        totalTodo(data.todos.filter((item: Data) => !item.completed).length)
+        totalTodo(data.todos.filter((item: Todo) => !item.completed).length)
       );
       dispatch(setTodos(data.todos));
       dispatch(setFilterTodos(data.todos));
@@ -102,7 +103,7 @@ const Todos = () => {
           <View style={tw`max-w-34rem mx-auto w-full`}>
             {filterTodos.length > 0 ? (
               <>
-                {filterTodos.map((item: Data) => (
+                {filterTodos.map((item: Todo) => (
                   <TodoItem key={item.id} item={item} />
                 ))}
               </>
