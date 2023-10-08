@@ -88,7 +88,8 @@ const initialState = {
   loading: false,
   update: false,
   item: {},
-  isModalVisible: false
+  isModalVisible: false,
+  filter: 'all'
 };
 
 const TodoSlice = createSlice({
@@ -99,25 +100,33 @@ const TodoSlice = createSlice({
       state.darkMode = action.payload;
     },
     totalTodo: (state, action) => {
-      state.total = action.payload
+      state.total = action.payload;
     },
-    setUpdate: (state, action)=>{
-      state.update = action.payload
+    setUpdate: (state, action) => {
+      state.update = action.payload;
     },
-    curItem: (state, action)=>{
-      state.item = action.payload
+    curItem: (state, action) => {
+      state.item = action.payload;
     },
-    setModalVisible: (state, action)=>{
+    setModalVisible: (state, action) => {
       state.isModalVisible = action.payload;
-    }
-    // setTodo: (state, action) => {},
-    // inputTodo: (state, action) => {},
-    // submitTodo: (state, action) => {},
-    // clearCompleted: (state, action) => {},
-    // setFilterTodos: (state, action) => {},
-    // displayCompleted: (state, action) => {},
-    // displayActive: (state, action) => {},
-    // displayAll: (state, action) => {},
+    },
+    setTodos: (state, action) => {
+      state.todos = action.payload;
+    },
+    setFilterTodos: (state, action) => {
+      state.filterTodos = action.payload;
+    },
+    filterStatus: (state, {payload}) => {
+       state.filter = payload;
+      if (state.filter === "completed") {
+        state.filterTodos = state.todos.filter((todo) => todo.completed);
+      } else if (state.filter === "active") {
+        state.filterTodos = state.todos.filter((todo) => !todo.completed);
+      } else {
+        state.filterTodos = state.todos;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(addTodo.pending, (state, action) => {
@@ -180,6 +189,15 @@ const TodoSlice = createSlice({
   },
 });
 
-export const { setDarkMode, setUpdate, curItem, setModalVisible, totalTodo } = TodoSlice.actions;
+export const {
+  setDarkMode,
+  setUpdate,
+  curItem,
+  setModalVisible,
+  totalTodo,
+  setTodos,
+  filterStatus,
+  setFilterTodos
+} = TodoSlice.actions;
 
 export default TodoSlice.reducer;

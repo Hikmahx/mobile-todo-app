@@ -5,9 +5,10 @@ import Loading from "./Loading";
 import tw from "../lib/tailwind";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
+import { filterStatus } from "../redux/reducers/todoSlice";
 
 const Bottom = () => {
-  const { darkMode, todos, error, errMessage, total, filterTodos, loading } =
+  const { darkMode, todos, error, errMessage, total, filter, loading } =
     useSelector((state: RootState) => state.todo);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -25,12 +26,12 @@ const Bottom = () => {
           <View style={tw`flex flex-row justify-center mx-auto`}>
             <View style={tw`w-full flex flex-row items-center justify-center`}>
               <TouchableOpacity
-                // onPress={() => dispatch(displayAll)}
+                onPress={() => dispatch(filterStatus("all"))}
                 style={tw`mx-3 `}
               >
                 <Text
                   style={[
-                    tw`text-sm text-center text-bright-blue`,
+                    tw`text-sm text-center ${filter === 'all'? 'text-bright-blue': 'text-dark-grayish-blue'}`,
                     { fontFamily: "JosefinSans_700Bold" },
                   ]}
                 >
@@ -38,12 +39,12 @@ const Bottom = () => {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                // onPress={() => dispatch(displayActive)}
+                onPress={() => dispatch(filterStatus("active"))}
                 style={tw`mx-3`}
               >
                 <Text
                   style={[
-                    tw`text-sm text-center text-dark-grayish-blue`,
+                    tw`text-sm text-center  ${filter === 'active'? 'text-bright-blue': 'text-dark-grayish-blue'}`,
                     { fontFamily: "JosefinSans_700Bold" },
                   ]}
                 >
@@ -51,12 +52,12 @@ const Bottom = () => {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                // onPress={displayCompleted}
+                onPress={() => dispatch(filterStatus("completed"))}
                 style={tw`mx-3`}
               >
                 <Text
                   style={[
-                    tw`text-sm text-center text-dark-grayish-blue`,
+                    tw`text-sm text-center ${filter === 'completed'? 'text-bright-blue': 'text-dark-grayish-blue'}`,
                     { fontFamily: "JosefinSans_700Bold" },
                   ]}
                 >

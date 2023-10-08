@@ -9,7 +9,12 @@ import Bottom from "./Bottom";
 import { todos } from "../todos.json";
 import { GET_TODOS } from "../GraphQL/Queries/todoQueries";
 import { useMutation, useQuery } from "@apollo/client";
-import { totalTodo } from "../redux/reducers/todoSlice";
+import {
+  filterStatus,
+  setFilterTodos,
+  setTodos,
+  totalTodo,
+} from "../redux/reducers/todoSlice";
 import { CLEAR_COMPLETED } from "../GraphQL/Mutations/todoMutations";
 
 const Todos = () => {
@@ -25,6 +30,8 @@ const Todos = () => {
     errMessage,
     total,
     filterTodos,
+    todos,
+    filter
     //  loading
   } = useSelector((state: RootState) => state.todo);
   const dispatch = useDispatch<AppDispatch>();
@@ -53,6 +60,9 @@ const Todos = () => {
       dispatch(
         totalTodo(data.todos.filter((item: Data) => !item.completed).length)
       );
+      dispatch(setTodos(data.todos));
+      dispatch(setFilterTodos(data.todos));
+      dispatch(filterStatus("all"));
     }
   }, [data, dispatch]);
 
@@ -90,9 +100,23 @@ const Todos = () => {
         )} */}
 
           <View style={tw`max-w-34rem mx-auto w-full`}>
-            {data.todos.map((item: Data) => (
-              <TodoItem key={item.id} item={item} />
-            ))}
+            {filterTodos.length > 0 ? (
+              <>
+                {filterTodos.map((item: Data) => (
+                  <TodoItem key={item.id} item={item} />
+                ))}
+              </>
+            ) : (
+              <View>
+                <Text
+                style={[
+                  tw`text-dark-grayish-blue text-xs text-center mt-12 mb-8 `,
+                  { fontFamily: "JosefinSans_700Bold" },
+                ]}>
+                  No {filter} items
+                </Text>
+              </View>
+            )}
 
             <View
               style={tw`w-full mt-7 flex flex-row items-center justify-between`}
