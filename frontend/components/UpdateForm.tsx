@@ -47,6 +47,8 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ item, closeModal }) => {
     setTags(updatedTags);
   };
 
+  const [updateTodo] = useMutation(UPDATE_TODO);
+
   const onSubmit = async (data: FormData) => {
     try {
       // const { todo } = item;
@@ -54,6 +56,16 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ item, closeModal }) => {
       // const updatedTodo = { ...todo, todo: input };
 
       // console.log(updatedTodo);
+      updateTodo({
+        variables: {
+          id: item.id,
+          todo: data.todo,
+          tags: data.tags,
+          // completed: !completed,
+        },
+        refetchQueries: [{ query: GET_TODOS }],
+      });
+
       console.log(data);
     } catch (error) {
       console.error("Error updating todo:", error);
@@ -107,7 +119,7 @@ const UpdateForm: React.FC<UpdateFormProps> = ({ item, closeModal }) => {
                   accessibilityHint="Enter todo item"
                   placeholder="Update todo..."
                   placeholderTextColor="#7E7E7E"
-                  />
+                />
               )}
               name="todo"
               // defaultValue=""
