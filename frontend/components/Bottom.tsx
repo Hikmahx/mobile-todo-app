@@ -70,14 +70,14 @@ const Bottom = () => {
           {/* ) : null} */}
         </View>
       </View>
-      <Text
+      {/* <Text
         style={[
           tw`mt-12 text-sm text-center text-dark-grayish-blue`,
           { fontFamily: "JosefinSans_400Regular" },
         ]}
       >
         Drag and drop to reorder list
-      </Text>
+      </Text> */}
     </View>
   );
 };
